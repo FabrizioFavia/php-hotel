@@ -10,50 +10,48 @@
 <body>
     <?php
 
-        $hotels = [
+$hotels = [
 
-            [
-                'name' => 'Hotel Belvedere',
-                'description' => 'Hotel Belvedere Descrizione',
-                'parking' => true,
-                'vote' => 4,
-                'distance_to_center' => 10.4
-            ],
-            [
-                'name' => 'Hotel Futuro',
-                'description' => 'Hotel Futuro Descrizione',
-                'parking' => true,
-                'vote' => 2,
-                'distance_to_center' => 2
-            ],
-            [
-                'name' => 'Hotel Rivamare',
-                'description' => 'Hotel Rivamare Descrizione',
-                'parking' => false,
-                'vote' => 1,
-                'distance_to_center' => 1
-            ],
-            [
-                'name' => 'Hotel Bellavista',
-                'description' => 'Hotel Bellavista Descrizione',
-                'parking' => false,
-                'vote' => 5,
-                'distance_to_center' => 5.5
-            ],
-            [
-                'name' => 'Hotel Milano',
-                'description' => 'Hotel Milano Descrizione',
-                'parking' => true,
-                'vote' => 2,
-                'distance_to_center' => 50
-            ],
+    [
+        'name' => 'Hotel Belvedere',
+        'description' => 'Hotel Belvedere Descrizione',
+        'parking' => true,
+        'vote' => 4,
+        'distance_to_center' => 10.4
+    ],
+    [
+        'name' => 'Hotel Futuro',
+        'description' => 'Hotel Futuro Descrizione',
+        'parking' => true,
+        'vote' => 2,
+        'distance_to_center' => 2
+    ],
+    [
+        'name' => 'Hotel Rivamare',
+        'description' => 'Hotel Rivamare Descrizione',
+        'parking' => false,
+        'vote' => 1,
+        'distance_to_center' => 1
+    ],
+    [
+        'name' => 'Hotel Bellavista',
+        'description' => 'Hotel Bellavista Descrizione',
+        'parking' => false,
+        'vote' => 5,
+        'distance_to_center' => 5.5
+    ],
+    [
+        'name' => 'Hotel Milano',
+        'description' => 'Hotel Milano Descrizione',
+        'parking' => true,
+        'vote' => 2,
+        'distance_to_center' => 50
+    ],
 
-        ];
+];
 
     ?>
-
     <div class="container-lg">
-
 
         <h1 class="my-5">Cerca gli hotel selezionando le opzioni disponibili</h1>
 
@@ -83,57 +81,42 @@
             <button type="submit" class="btn btn-primary my-3 me-5">Cerca</button>
         </form>
 
-     <!-- TABELLA --> 
-      
         <h2 class="my-3">Lista degli Hotel</h2>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nome Hotel</th>
-                        <th scope="col">Descrizione</th>
-                        <th scope="col">Parcheggio</th>
-                        <th scope="col">Voto</th>
-                        <th scope="col">Distanza dal centro</th>
-                    </tr>
-                </thead>
-                <tbody> 
-
-
-                    <?php
-
-                        $i= 1;
-                        foreach ($hotels as $hotel) {?>
-                        
-                        <?php if ($hotel['vote']==$_GET["vote"] && $_GET["radio"]== $hotel['parking']) {?>
-                            <tr>
-                            <th scope="row"><?php echo $i++ ?></th>
-                            <td><?php echo  $hotel['name'] ?></td>
-                            <td><?php echo  $hotel['description'] ?></td>
-                            <td><?php echo  $hotel['parking'] ?></td>
-                            <td><?php echo  $hotel['vote'] ?></td>
-                            <td><?php echo  $hotel['distance_to_center'] . " km" ?></td>
-                        </tr>
-                        <?php }elseif ($_GET["vote"]=="") {?>
-                            <tr>
-                            <th scope="row"><?php echo $i++ ?></th>
-                            <td><?php echo  $hotel['name'] ?></td>
-                            <td><?php echo  $hotel['description'] ?></td>
-                            <td><?php echo  $hotel['parking'] ?></td>
-                            <td><?php echo  $hotel['vote'] ?></td>
-                            <td><?php echo  $hotel['distance_to_center'] . " km" ?></td>
-                        </tr>
-                        <?php } ?>
-                        
-                    <?php } 
-                    ?>
-
-
-
-
-                </tbody>
-            </table>   
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome Hotel</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Parcheggio</th>
+                    <th scope="col">Voto</th>
+                    <th scope="col">Distanza dal centro</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <?php
+                    $i = 1;
+                    foreach ($hotels as $hotel) {
+                        if ((isset($_GET["vote"]) && $hotel['vote'] == $_GET["vote"]) || (!isset($_GET["vote"]) || $_GET["vote"]=="")) {
+                            if (!isset($_GET["radio"]) || ($_GET["radio"] == '1' && $hotel['parking']) || ($_GET["radio"] == '' && !$hotel['parking'])) {
+                                ?>
+                                <tr>
+                                    <th scope="row"><?php echo $i++ ?></th>
+                                    <td><?php echo  $hotel['name'] ?></td>
+                                    <td><?php echo  $hotel['description'] ?></td>
+                                    <td><?php echo  $hotel['parking'] ? 'Con parcheggio' : 'Senza parcheggio' ?></td>
+                                    <td><?php echo  $hotel['vote'] ?></td>
+                                    <td><?php echo  $hotel['distance_to_center'] . " km" ?></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                    }
+                ?>
+            </tbody>
+        </table>   
     </div>     
+
 </body>
 </html>
