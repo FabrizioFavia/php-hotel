@@ -54,34 +54,76 @@
 
     <div class="container-lg">
 
-    <h1 class="my-5">Lista degli Hotel</h1>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nome Hotel</th>
-                    <th scope="col">Descrizione</th>
-                    <th scope="col">Parcheggio</th>
-                    <th scope="col">Voto</th>
-                    <th scope="col">Distanza dal centro</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    foreach ($hotels as $hotel) {?>
+        <h1 class="my-5">Cerca gli hotel selezionando le opzioni disponibili</h1>
+
+        <form action="index.php" method="GET">
+            <div class="optContainer d-flex">
+                <div class="mb-3">
+                    <label class="me-3" for="hotelVote">Voto della struttura: </label>
+                    <select class="me-3" name="vote" id="hotelVote">
+                        <option value="">Seleziona voto</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select> 
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="radio" name="radio" id="radioTrue" value="1" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">Con Parcheggio</label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="radio" name="radio" id="radioFalse" value="">
+                    <label class="form-check-label" for="flexRadioDefault2">Senza Parcheggio</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary my-3">Submit</button>
+        </form>
+
+     <!-- TABELLA --> 
+      
+        <h2 class="my-3">Lista degli Hotel</h2>
+
+            <table class="table">
+                <thead>
                     <tr>
-                        <th scope="row">1</th>
-                        <td><?php echo  $hotel['description'] ?></td>
-                        <td><?php echo  $hotel['name'] ?></td>
-                        <td><?php echo  $hotel['parking'] ?></td>
-                        <td><?php echo  $hotel['vote'] ?></td>
-                        <td><?php echo  $hotel['distance_to_center'] ?></td>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome Hotel</th>
+                        <th scope="col">Descrizione</th>
+                        <th scope="col">Parcheggio</th>
+                        <th scope="col">Voto</th>
+                        <th scope="col">Distanza dal centro</th>
                     </tr>
-                <?php } 
-                ?>
-            </tbody>
-        </table>  
+                </thead>
+                <tbody> 
+
+
+                    <?php
+
+                        $i= 1;
+                        foreach ($hotels as $hotel) {?>
+                        
+                        <?php if ($hotel['vote']>=$_GET["vote"] && $_GET["radio"]== $hotel['parking']) {?>
+                            <tr>
+                            <th scope="row"><?php echo $i++ ?></th>
+                            <td><?php echo  $hotel['name'] ?></td>
+                            <td><?php echo  $hotel['description'] ?></td>
+                            <td><?php echo  $hotel['parking'] ?></td>
+                            <td><?php echo  $hotel['vote'] ?></td>
+                            <td><?php echo  $hotel['distance_to_center'] . " km" ?></td>
+                        </tr>
+                        <?php } ?> 
+                        
+                    <?php } 
+                    ?>
+
+
+
+
+                </tbody>
+            </table>   
     </div>     
 </body>
 </html>
