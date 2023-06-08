@@ -71,15 +71,16 @@
                     </select> 
                 </div>
                 <div class="form-check me-3">
-                    <input class="form-check-input" type="radio" name="radio" id="radioTrue" value="1" checked>
+                    <input class="form-check-input" type="checkbox" name="radio" id="radioTrue" value="1">
                     <label class="form-check-label" for="flexRadioDefault1">Con Parcheggio</label>
                 </div>
                 <div class="form-check me-3">
-                    <input class="form-check-input" type="radio" name="radio" id="radioFalse" value="">
+                    <input class="form-check-input" type="checkbox" name="radio" id="radioFalse" value="">
                     <label class="form-check-label" for="flexRadioDefault2">Senza Parcheggio</label>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary my-3">Submit</button>
+
+            <button type="submit" class="btn btn-primary my-3 me-5">Cerca</button>
         </form>
 
      <!-- TABELLA --> 
@@ -105,7 +106,7 @@
                         $i= 1;
                         foreach ($hotels as $hotel) {?>
                         
-                        <?php if ($hotel['vote']>=$_GET["vote"] && $_GET["radio"]== $hotel['parking']) {?>
+                        <?php if ($hotel['vote']==$_GET["vote"] && $_GET["radio"]== $hotel['parking']) {?>
                             <tr>
                             <th scope="row"><?php echo $i++ ?></th>
                             <td><?php echo  $hotel['name'] ?></td>
@@ -114,7 +115,16 @@
                             <td><?php echo  $hotel['vote'] ?></td>
                             <td><?php echo  $hotel['distance_to_center'] . " km" ?></td>
                         </tr>
-                        <?php } ?> 
+                        <?php }elseif ($_GET["vote"]=="") {?>
+                            <tr>
+                            <th scope="row"><?php echo $i++ ?></th>
+                            <td><?php echo  $hotel['name'] ?></td>
+                            <td><?php echo  $hotel['description'] ?></td>
+                            <td><?php echo  $hotel['parking'] ?></td>
+                            <td><?php echo  $hotel['vote'] ?></td>
+                            <td><?php echo  $hotel['distance_to_center'] . " km" ?></td>
+                        </tr>
+                        <?php } ?>
                         
                     <?php } 
                     ?>
