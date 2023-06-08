@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,21 +52,36 @@
 
     ?>
 
-    <h1>Lista degli Hotel</h1>
+    <div class="container-lg">
 
-    <?php
+    <h1 class="my-5">Lista degli Hotel</h1>
 
-    foreach ($hotels as $hotel) {?>
-    <hr>
-    <h2><?php echo 'nome: '. $hotel['name'] ?></h2>
-    <p><?php echo 'descrizione: '. $hotel['description'] ?></p>
-    <p><?php echo 'parcheggio: '. $hotel['parking'] ?></p>
-    <p><?php echo 'voto: '. $hotel['vote'] ?></p>
-    <p><?php echo 'Distanza dal centro: '. $hotel['distance_to_center'] . ' km' ?></p>
-    
-        <?php  
-    }
-    ?>
-        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome Hotel</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Parcheggio</th>
+                    <th scope="col">Voto</th>
+                    <th scope="col">Distanza dal centro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    foreach ($hotels as $hotel) {?>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td><?php echo  $hotel['description'] ?></td>
+                        <td><?php echo  $hotel['name'] ?></td>
+                        <td><?php echo  $hotel['parking'] ?></td>
+                        <td><?php echo  $hotel['vote'] ?></td>
+                        <td><?php echo  $hotel['distance_to_center'] ?></td>
+                    </tr>
+                <?php } 
+                ?>
+            </tbody>
+        </table>  
+    </div>     
 </body>
 </html>
